@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "title": "Guitarra",
+    "description": "Fender Stratocaster",
+    "code": 111223,
+    "price": 123.45,
+    "status": true,
+    "stock": 5,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://stuff.fendergarage.com/images/G/6/Q/taxonomy-electric-guitar-stratocaster-american-professional-car@2x.png"
+  },
+  {
+    "id": 2,
+    "title": "Piano Digital",
+    "description": "Roland FP-30",
+    "code": 464658,
+    "price": 234.56,
+    "status": true,
+    "stock": 2,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_993817-MLA47456372804_092021-O.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Amplificador",
+    "description": "Marshall DSL-40C",
+    "code": 789456,
+    "price": 345.67,
+    "status": false,
+    "stock": 4,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://www.show-room.com.ar/wp-content/uploads/2022/09/22359_4-1.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Music Man",
+    "description": "StingRay",
+    "code": 685216,
+    "price": 463.53,
+    "status": true,
+    "stock": 3,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://static.sonovente.com/img/library/zoom/62/450/62358_1.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Bateria",
+    "description": "Pearl Export Studio 5",
+    "code": 342867,
+    "price": 984.21,
+    "status": true,
+    "stock": 1,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_948929-MLA31098256023_062019-O.webp"
+  },
+  {
+    "id": 6,
+    "title": "Sintetizador",
+    "description": "Korg Kronos 61",
+    "code": 631524,
+    "price": 874.23,
+    "status": false,
+    "stock": 2,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://m.media-amazon.com/images/I/414kfpGjoCL._SR600%2C315_PIWhiteStrip%2CBottomLeft%2C0%2C35_SCLZZZZZZZ_FMpng_BG255%2C255%2C255.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Piano Acustico",
+    "description": "Walden",
+    "code": 537429,
+    "price": 453.71,
+    "status": true,
+    "stock": 1,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_603727-MLA49096776579_022022-O.webp"
+  },
+  {
+    "id": 8,
+    "title": "Guitarra Acustica",
+    "description": "Gibson G-45",
+    "code": 741856,
+    "price": 648.52,
+    "status": true,
+    "stock": 5,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://ar.xprostore.com/image/cache/data/imagenesweb/mcrsg5an-1600x900.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Saxo Alto",
+    "description": "Yamaha YAS-62",
+    "code": 687856,
+    "price": 156.48,
+    "status": true,
+    "stock": 6,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://www.gonzalezvientos.com.ar/gvstore/wp-content/uploads/2016/03/YAS-62-03.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Trompeta",
+    "description": "Yamaha YTR-3330",
+    "code": 326485,
+    "price": 345.67,
+    "status": false,
+    "stock": 2,
+    "category": "Instrumentos Musicales",
+    "thumbnails": "https://solomusica.com.ar/sm2020/6265-large_default/trompeta-yamaha-ytr-2330.jpg"
+  }
+]
