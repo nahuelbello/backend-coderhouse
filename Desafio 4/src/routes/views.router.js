@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { Server } from "socket.io"
 import path from "path";
 import { ProductManager } from "../productManager.js";
 
@@ -28,27 +27,6 @@ viewsRouter.get("/realtimeproducts", async (req, res) => {
         res.status(404).send(err);
     }
 });
-
-viewsRouter.post("/realtimeproducts", async (req, res) => {
-    try {
-        productManager.addProduct(req.body);
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
-
-viewsRouter.delete("/realtimeproducts", async (req, res) => {
-    console.log("asdas")
-    try {
-        const ID = parseInt(req.params.pid);
-        productManager.deleteProduct(ID);
-        res.sendStatus(200);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
-
 
 
 export default viewsRouter;

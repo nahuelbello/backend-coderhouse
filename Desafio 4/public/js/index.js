@@ -16,10 +16,7 @@ document.getElementById("add").addEventListener("click", function () {
 });
 
 
-
 document.getElementById("delete").addEventListener("click", function () {
     const data = document.getElementById("pid").value;
-    console.log(data);
-  
     socket.emit("delete", data);
 });

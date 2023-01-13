@@ -35,7 +35,6 @@ socketServer.on("connection", socket => {
     console.log("Cliente conectado");
 
     socket.on("add", (data) => {
-        console.log(data);
         try {
             productManager.addProduct(data);
             // res.sendStatus(200);
@@ -47,7 +46,6 @@ socketServer.on("connection", socket => {
     socket.on("delete", (data) => {
         try {
             const ID = parseInt(data);
-            console.log("despues del parse")
             productManager.deleteProduct(ID);
             // res.sendStatus(200);
         } catch (err) {
@@ -55,4 +53,3 @@ socketServer.on("connection", socket => {
         }
     }); 
 });
-
