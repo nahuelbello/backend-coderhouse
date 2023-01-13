@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Server } from "socket.io"
 import path from "path";
 import { ProductManager } from "../productManager.js";
 
@@ -37,7 +38,7 @@ viewsRouter.post("/realtimeproducts", async (req, res) => {
     }
 });
 
-viewsRouter.delete("/realtimeproducts/:pid", async (req, res) => {
+viewsRouter.delete("/realtimeproducts", async (req, res) => {
     console.log("asdas")
     try {
         const ID = parseInt(req.params.pid);
@@ -47,7 +48,6 @@ viewsRouter.delete("/realtimeproducts/:pid", async (req, res) => {
         res.status(500).send(err);
     }
 });
-
 
 
 

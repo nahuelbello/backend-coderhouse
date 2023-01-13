@@ -4,6 +4,11 @@ import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import viewsRouter from "./routes/views.router.js";
 import { Server } from "socket.io"
+import { ProductManager } from "./productManager.js";
+import path from "path";
+
+
+const productManager = new ProductManager(path.resolve("./public/products.json"));
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,9 +34,25 @@ app.use("/", viewsRouter);
 socketServer.on("connection", socket => {
     console.log("Cliente conectado");
 
-    socket.emit("message", "bienvenido al servidor");
-
-    socket.on("message", data => {
+    socket.on("add", (data) => {
         console.log(data);
+        try {
+            productManager.addProduct(data);
+            // res.sendStatus(200);
+        } catch (err) {
+            // res.status(500).send(err);
+        }
     });
+
+    socket.on("delete", (data) => {
+        try {
+            const ID = parseInt(data);
+            console.log("despues del parse")
+            productManager.deleteProduct(ID);
+            // res.sendStatus(200);
+        } catch (err) {
+            // res.status(500).send(err);
+        }
+    }); 
 });
+

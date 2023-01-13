@@ -7,8 +7,13 @@ h1 {
     text-align: center;
 }
 
-div div {
+.product {
     background-color: rgb(218, 215, 215);
     padding: 0.5rem;
     margin-top: 0.5rem;
+    border-radius: 4px;
+}
+
+form > input, form > button {
+    border-radius: 3px;
 }

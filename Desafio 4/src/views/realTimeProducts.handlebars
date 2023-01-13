@@ -2,7 +2,7 @@
     <h1>PRODUCTOS</h1>
 
     {{#each PRODUCTS}}
-        <div>
+        <div class="product">
             <p><b>ID:</b> {{this.id}}</p>
             <p><b>Title:</b> {{this.title}}</p>
             <p><b>Description:</b> {{this.description}}</p>
@@ -26,14 +26,14 @@
         <input type="text" placeholder="Category" id="category"/>
         <input type="text" placeholder="Thumbnails" id="thumbnails"/>
 
-        <button id="send" type="button" class="btn add-btn">AGREGAR</button>
+        <button id="add" type="button" class="btn add-btn">AGREGAR</button>
     </form>
     
     <h3>ELIMINAR UN PRODUCTO</h3>
     <form action="/realtimeproducts" method="delete">
-        <input type="text" placeholder="ID" name="pid" id="pid"/>
+        <input type="text" placeholder="ID" id="pid"/>
 
-        <button id="send" type="button" class="btn del-btn">ELIMINAR</button>
+        <button id="delete" type="button" class="btn del-btn">ELIMINAR</button>
     </form>
 
 </div>
