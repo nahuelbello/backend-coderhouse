@@ -1,0 +1,42 @@
+<div>
+    <h1>PRODUCTOS</h1>
+
+    {{#each PRODUCTS}}
+        <div>
+            <p><b>ID:</b> {{this.id}}</p>
+            <p><b>Title:</b> {{this.title}}</p>
+            <p><b>Description:</b> {{this.description}}</p>
+            <p><b>Code:</b> {{this.code}}</p>
+            <p><b>Price:</b> $ {{this.price}}</p>
+            <p><b>Status:</b> {{this.status}}</p>
+            <p><b>Stock:</b> {{this.stock}}</p>
+            <p><b>Category:</b> {{this.category}}</p>
+            <p><b>Thumbnails:</b> {{this.thumbnails}}</p>
+        </div>
+    {{/each}}
+
+    <h3>AGREGAR UN PRODUCTO</h3>
+    <form action="/realtimeproducts" method="post">
+        <input type="text" placeholder="Title" id="title"/>
+        <input type="text" placeholder="Description" id="description"/>
+        <input type="text" placeholder="Code" id="code"/>
+        <input type="text" placeholder="Price" id="price"/>
+        <input type="text" placeholder="Status" id="status"/>
+        <input type="text" placeholder="Stock" id="stock"/>
+        <input type="text" placeholder="Category" id="category"/>
+        <input type="text" placeholder="Thumbnails" id="thumbnails"/>
+
+        <button id="send" type="button" class="btn add-btn">AGREGAR</button>
+    </form>
+    
+    <h3>ELIMINAR UN PRODUCTO</h3>
+    <form action="/realtimeproducts" method="delete">
+        <input type="text" placeholder="ID" name="pid" id="pid"/>
+
+        <button id="send" type="button" class="btn del-btn">ELIMINAR</button>
+    </form>
+
+</div>
+
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script>
