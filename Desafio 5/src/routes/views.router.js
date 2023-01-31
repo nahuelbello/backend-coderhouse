@@ -1,13 +1,13 @@
 import { Router } from "express";
-import DbManager from "../dao/dbManager.js";
+import { ProductManager } from "../dao/dbManager.js";
 
 const viewsRouter = Router();
-const dbManager = new DbManager();
+const productManager = new ProductManager();
 
 
 viewsRouter.get("/", async (req, res) => {
     try {
-        const products = await dbManager.getProducts();
+        const products = await productManager.getProducts();
         res.render("home", {
             products: products
         });
@@ -18,7 +18,7 @@ viewsRouter.get("/", async (req, res) => {
 
 viewsRouter.get("/realtimeproducts", async (req, res) => {
     try {
-        const products = await dbManager.getProducts();
+        const products = await productManager.getProducts();
         res.render("realTimeProducts", {
             products: products
         });

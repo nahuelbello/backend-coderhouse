@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import handlebars from "express-handlebars";
 import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
-// import viewsRouter from "./routes/views.router.js";
+import viewsRouter from "./routes/views.router.js";
+import { Server } from "socket.io"
 
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 const httpServer = app.listen(PORT, () => console.log(`Servidor escuchando en http://localhost:${PORT}`));
-// const socketServer = new Server(httpServer);
+const socketServer = new Server(httpServer);
 
 
 app.engine("handlebars", handlebars.engine());
@@ -24,7 +25,7 @@ app.use(express.static("public"));
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
-// app.use("/", viewsRouter);
+app.use("/", viewsRouter);
 
 
 mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/ecommerce?retryWrites=true&w=majority", (error) => {
@@ -36,7 +37,6 @@ mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/e
 });
 
 
-/*
 socketServer.on("connection", socket => {
     console.log("Cliente conectado");
 
@@ -59,4 +59,3 @@ socketServer.on("connection", socket => {
         }
     }); 
 });
-*/
