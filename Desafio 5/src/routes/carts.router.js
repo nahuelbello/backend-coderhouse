@@ -1,11 +1,10 @@
 import { Router } from "express";
-import DbManager from "../dao/dbManager.js";
+import { CartManager } from "../dao/dbManager.js";
 
 const cartsRouter = Router();
-const dbManager = new DbManager();
+const cartManager = new CartManager();
 
 
-/*
 cartsRouter.get("/:cid", async (req, res) => {
     try {
         const id = parseInt(req.params.cid);
@@ -29,13 +28,12 @@ cartsRouter.post("/", async (req, res) => {
 
 cartsRouter.post("/:cid", async (req, res) => {
     try {
-        const id = parseInt(req.params.cid);
-        cartManager.addProduct(id, req.body);
+        cartManager.addProduct(req.params.cid, req.body);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
-*/
+
 
 export default cartsRouter;

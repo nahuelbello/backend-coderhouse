@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import handlebars from "express-handlebars";
-// import cartsRouter from "./routes/carts.router.js";
+import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 // import viewsRouter from "./routes/views.router.js";
 
@@ -23,6 +23,8 @@ app.use(express.static("public"));
 
 
 app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
+// app.use("/", viewsRouter);
 
 
 mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/ecommerce?retryWrites=true&w=majority", (error) => {
@@ -35,29 +37,6 @@ mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/e
 
 
 /*
-const productManager = new ProductManager(path.resolve("./public/products.json"));
-
-const app = express();
-const PORT = process.env.PORT || 8080;
-const httpServer = app.listen(PORT, () => console.log(`Servidor escuchando en http://localhost:${PORT}`));
-const socketServer = new Server(httpServer);
-
-
-app.engine("handlebars", handlebars.engine());
-app.set("view engine", "handlebars");
-app.set("views", "./src/views/");
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-
-app.use("/api/carts", cartsRouter);
-app.use("/api/products", productsRouter);
-app.use("/", viewsRouter);
-
-
 socketServer.on("connection", socket => {
     console.log("Cliente conectado");
 

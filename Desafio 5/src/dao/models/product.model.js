@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
         },
         status: {
             type: Boolean,
-            require: true
+            default: true
         }
     },
     { versionKey: false }

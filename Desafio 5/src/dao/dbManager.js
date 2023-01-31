@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
 import productModel from "./models/product.model.js";
 import cartModel from "./models/cart.model.js";
 
 
-class DbManager {
+class ProductManager {
+
+    // Trae todos los productos.
     async getProducts() {
         try {
             const products = await productModel.find();
@@ -13,6 +14,7 @@ class DbManager {
         }
     }
 
+    // Trae el producto que tiene un code igual al ingresado. Si no lo encuentra, devuelve error.
     async getProductByCode(code) {
         try {
             const product = await productModel.findOne({ code: code });
@@ -23,6 +25,8 @@ class DbManager {
         }
     }
 
+    // Agrega un producto a la coleccion. Si el code es el mismo que el de un producto previamente ingresado, devuelve error.
+    // Define el atributo status en true por default.
     async addProduct(product) {
         try {
             const prod = {
@@ -42,6 +46,8 @@ class DbManager {
         }
     }
 
+    // Actualiza el producto correspondiente segun el code ingresado. Si no lo encuentra, devuelve error.
+    // Si se intenta modificar el code, lo ignora.
     async updateProduct(code, product) {
         try {
             const prod = await this.getProductByCode(code);
@@ -65,6 +71,7 @@ class DbManager {
         }
     }
 
+    // Elimina el producto correspondiente segun el code ingresado. Si no lo encuentra, devuelve error.
     async deleteProduct(code) {
         try {
             await productModel.deleteOne({ code: code })
@@ -73,7 +80,52 @@ class DbManager {
             throw(err);
         }
     }
-}
+};
 
 
-export default DbManager;
+class CartManager {
+
+    // Trae el carrito correspondiente segun el id ingresado. Si no lo encuentra, devuelve error.
+    async getCartById(id) {
+        try {
+            const cart = await cartModel.findOne({ id: id });
+            return cart;
+        }
+        catch (err) {
+            throw(err);
+        }
+    }
+
+    // Crea un carrito nuevo con un array de productos vacio.
+    async addCart() {
+        try {
+            await cartModel.create({});
+        }
+        catch (err) {
+            throw(err);
+        }
+    }
+
+    // Agrega un producto al carrito indicado en "idCart". Si no encuentra el carrito, devuelve error.
+    // Si el producto no existe, devuelve error. Si el producto ya fue ingresado, suma la cantidad nueva a la cantidad ya ingresada.
+    async addProduct(idCart, product) {
+        try {
+            await cartModel.updateOne(
+                { _id: idCart },
+                {
+                    $push: {
+                            "products": {
+                                product : product.id,
+                                quantity: product.quantity
+                            }
+                    }
+                }
+            );
+        } catch (err) {
+            throw(err);
+        }
+    }
+};
+
+
+export { ProductManager, CartManager };
