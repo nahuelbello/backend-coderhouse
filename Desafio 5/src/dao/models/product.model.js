@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const useCollection = "products";
 
 const userSchema = new mongoose.Schema(
@@ -41,5 +42,6 @@ const userSchema = new mongoose.Schema(
 );
 
 const productModel = mongoose.model(useCollection, userSchema);
+
 
 export default productModel;

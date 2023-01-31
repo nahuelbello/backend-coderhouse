@@ -14,10 +14,10 @@ class ProductManager {
         }
     }
 
-    // Trae el producto que tiene un code igual al ingresado. Si no lo encuentra, devuelve error.
-    async getProductByCode(code) {
+    // Trae el producto que que corresponde al id ingresado. Si no lo encuentra, devuelve error.
+    async getProductById(id) {
         try {
-            const product = await productModel.findOne({ code: code });
+            const product = await productModel.findOne({ _id: id });
             return product;
         }
         catch (err) {
@@ -46,13 +46,13 @@ class ProductManager {
         }
     }
 
-    // Actualiza el producto correspondiente segun el code ingresado. Si no lo encuentra, devuelve error.
-    // Si se intenta modificar el code, lo ignora.
-    async updateProduct(code, product) {
+    // Actualiza el producto que corresponde al id ingresado. Si no lo encuentra, devuelve error.
+    // Si se intenta modificar el code o el id, lo ignora.
+    async updateProduct(id, product) {
         try {
-            const prod = await this.getProductByCode(code);
+            const prod = await this.getProductById(id);
             await productModel.updateOne(
-                { code: code },
+                { _id: id },
                 {
                     $set: {
                         title: product.title || prod.title,
@@ -71,10 +71,10 @@ class ProductManager {
         }
     }
 
-    // Elimina el producto correspondiente segun el code ingresado. Si no lo encuentra, devuelve error.
-    async deleteProduct(code) {
+    // Elimina el producto que corresponde al id ingresado. Si no lo encuentra, devuelve error.
+    async deleteProduct(id) {
         try {
-            await productModel.deleteOne({ code: code })
+            await productModel.deleteOne({ _id: id })
         }
         catch (err) {
             throw(err);
@@ -85,7 +85,7 @@ class ProductManager {
 
 class CartManager {
 
-    // Trae el carrito correspondiente segun el id ingresado. Si no lo encuentra, devuelve error.
+    // Trae el carrito que corresponde al id ingresado. Si no lo encuentra, devuelve error.
     async getCartById(id) {
         try {
             const cart = await cartModel.findOne({ id: id });

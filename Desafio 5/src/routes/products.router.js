@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { ProductManager } from "../dao/dbManager.js";
 
+
 const productsRouter = Router();
 const productManager = new ProductManager();
 
@@ -14,10 +15,9 @@ productsRouter.get("/", async (req, res) => {
     }
 });
 
-productsRouter.get("/:pcode", async (req, res) => {
+productsRouter.get("/:pid", async (req, res) => {
     try {
-        const code = parseInt(req.params.pcode);
-        const product = await productManager.getProductByCode(code);
+        const product = await productManager.getProductById(id);
         res.send(product);
     } catch (err) {
         res.status(404).send(err);
@@ -33,18 +33,18 @@ productsRouter.post("/", async (req, res) => {
     }
 });
 
-productsRouter.put("/:pcode", async (req, res) => {
+productsRouter.put("/:pid", async (req, res) => {
     try {
-        productManager.updateProduct(req.params.pcode, req.body);
+        productManager.updateProduct(req.params.pid, req.body);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-productsRouter.delete("/:pcode", async (req, res) => {
+productsRouter.delete("/:pid", async (req, res) => {
     try {
-        productManager.deleteProduct(req.params.pcode);
+        productManager.deleteProduct(req.params.pid);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);

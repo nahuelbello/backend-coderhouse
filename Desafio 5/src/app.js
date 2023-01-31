@@ -5,6 +5,10 @@ import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import viewsRouter from "./routes/views.router.js";
 import { Server } from "socket.io"
+import { ProductManager } from "./dao/dbManager.js";
+
+
+const productManager = new ProductManager();
 
 
 const app = express();
@@ -40,22 +44,19 @@ mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/e
 socketServer.on("connection", socket => {
     console.log("Cliente conectado");
 
-    socket.on("add", (data) => {
+    socket.on("add", (product) => {
         try {
-            productManager.addProduct(data);
-            // res.sendStatus(200);
+            productManager.addProduct(product);
         } catch (err) {
-            // res.status(500).send(err);
+            res.status(500).send(err);
         }
     });
 
-    socket.on("delete", (data) => {
+    socket.on("delete", (id) => {
         try {
-            const id = parseInt(data);
             productManager.deleteProduct(id);
-            // res.sendStatus(200);
         } catch (err) {
-            // res.status(500).send(err);
+            res.status(500).send(err);
         }
     }); 
 });
