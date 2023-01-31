@@ -1,31 +1,24 @@
-import { Router } from 'express';
-import path from "path";
+import { Router } from "express";
 import DbManager from "../dao/dbManager.js";
 
-
-
 const productsRouter = Router();
-const dbManager = new DbManager(path.resolve("./public/products.json"));
+const dbManager = new DbManager();
 
 
 productsRouter.get("/", async (req, res) => {
     try {
-        const products = await dbManager.read();
+        const products = await dbManager.getProducts();
         res.send(products);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-
-/*
-productsRouter.get("/:pid", async (req, res) => {
+productsRouter.get("/:pcode", async (req, res) => {
     try {
-        const id = parseInt(req.params.pid);
-        const product = await productManager.getProductById(id);
-        if (product) {
-            res.send(product);
-        }
+        const code = parseInt(req.params.pcode);
+        const product = await dbManager.getProductByCode(code);
+        res.send(product);
     } catch (err) {
         res.status(404).send(err);
     }
@@ -33,33 +26,30 @@ productsRouter.get("/:pid", async (req, res) => {
 
 productsRouter.post("/", async (req, res) => {
     try {
-        productManager.addProduct(req.body);
+        dbManager.addProduct(req.body);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-productsRouter.put("/:pid", async (req, res) => {
+productsRouter.put("/:pcode", async (req, res) => {
     try {
-        const id = parseInt(req.params.pid);
-        productManager.updateProduct(id, req.body);
+        dbManager.updateProduct(req.params.pcode, req.body);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-productsRouter.delete("/:pid", async (req, res) => {
+productsRouter.delete("/:pcode", async (req, res) => {
     try {
-        const id = parseInt(req.params.pid);
-        productManager.deleteProduct(id);
+        dbManager.deleteProduct(req.params.pcode);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
-*/
 
 
 export default productsRouter;

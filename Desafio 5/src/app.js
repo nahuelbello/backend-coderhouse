@@ -1,12 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
 import handlebars from "express-handlebars";
 // import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 // import viewsRouter from "./routes/views.router.js";
-import mongoose from "mongoose";
-
-
-
 
 
 const app = express();
@@ -28,18 +25,13 @@ app.use(express.static("public"));
 app.use("/api/products", productsRouter);
 
 
-mongoose.connect(
-    "mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/ecommerce?retryWrites=true&w=majority",
-    (error) => {
-        if (error) {
-            console.log(error);
-            console.log("Error de conexion");
-            process.exit();
-        } else {
-            console.log("Conectado a la base de datos");
-        }
+mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/ecommerce?retryWrites=true&w=majority", (error) => {
+    if (error) {
+        console.log("Error de conexion");
+    } else {
+        console.log("Conectado a la base de datos");
     }
-);
+});
 
 
 /*

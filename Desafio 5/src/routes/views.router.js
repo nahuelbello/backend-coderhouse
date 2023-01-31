@@ -1,14 +1,13 @@
 import { Router } from "express";
-import path from "path";
-import { ProductManager } from "../productManager.js";
+import DbManager from "../dao/dbManager.js";
 
 const viewsRouter = Router();
-const productManager = new ProductManager(path.resolve("./public/products.json"));
+const dbManager = new DbManager();
 
 
 viewsRouter.get("/", async (req, res) => {
     try {
-        const products = await productManager.getProducts();
+        const products = await dbManager.getProducts();
         res.render("home", {
             products: products
         });
@@ -19,7 +18,7 @@ viewsRouter.get("/", async (req, res) => {
 
 viewsRouter.get("/realtimeproducts", async (req, res) => {
     try {
-        const products = await productManager.getProducts();
+        const products = await dbManager.getProducts();
         res.render("realTimeProducts", {
             products: products
         });

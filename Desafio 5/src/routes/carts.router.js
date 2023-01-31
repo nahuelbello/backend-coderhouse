@@ -1,9 +1,8 @@
-import { Router } from 'express';
-import path from "path";
-// import { CartManager } from "../productManager.js";
+import { Router } from "express";
+import DbManager from "../dao/dbManager.js";
 
 const cartsRouter = Router();
-// const cartManager = new CartManager(path.resolve("./public/carts.json"));
+const dbManager = new DbManager();
 
 
 /*
