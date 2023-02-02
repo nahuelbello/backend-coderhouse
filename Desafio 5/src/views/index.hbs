@@ -3,15 +3,15 @@
 
     {{#each products}}
         <div class="product">
-            <p><b>ID:</b> {{this._id}}</p>
-            <p><b>Title:</b> {{this.title}}</p>
-            <p><b>Description:</b> {{this.description}}</p>
-            <p><b>Code:</b> {{this.code}}</p>
-            <p><b>Price:</b> $ {{this.price}}</p>
-            <p><b>Status:</b> {{this.status}}</p>
-            <p><b>Stock:</b> {{this.stock}}</p>
-            <p><b>Category:</b> {{this.category}}</p>
-            <p><b>Thumbnails:</b> {{this.thumbnails}}</p>
+            <p><b>ID:</b> {{_id}}</p>
+            <p><b>Title:</b> {{title}}</p>
+            <p><b>Description:</b> {{description}}</p>
+            <p><b>Code:</b> {{code}}</p>
+            <p><b>Price:</b> $ {{price}}</p>
+            <p><b>Status:</b> {{status}}</p>
+            <p><b>Stock:</b> {{stock}}</p>
+            <p><b>Category:</b> {{category}}</p>
+            <p><b>Thumbnails:</b> {{thumbnails}}</p>
         </div>
     {{/each}}
 
@@ -26,14 +26,14 @@
         <input type="text" placeholder="Category" id="category"/>
         <input type="text" placeholder="Thumbnails" id="thumbnails"/>
 
-        <button id="add" type="button" class="btn add-btn">AGREGAR</button>
+        <button id="addProduct" type="button" class="btn add-btn">AGREGAR</button>
     </form>
     
     <h3>ELIMINAR UN PRODUCTO</h3>
     <form action="/" method="delete">
-        <input type="text" placeholder="ID" id="pid"/>
+        <input type="text" placeholder="ID" id="deleteId"/>
 
-        <button id="delete" type="button" class="btn del-btn">ELIMINAR</button>
+        <button id="deleteProduct" type="button" class="btn del-btn">ELIMINAR</button>
     </form>
 </div>
 

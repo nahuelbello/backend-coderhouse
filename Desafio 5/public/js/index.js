@@ -1,6 +1,6 @@
 const socket = io();
 
-document.getElementById("add").addEventListener("click", function () {
+document.getElementById("addProduct").addEventListener("click", function () {
     const data = {
         title: document.getElementById("title").value,
         description: document.getElementById("description").value,
@@ -12,15 +12,11 @@ document.getElementById("add").addEventListener("click", function () {
         category: document.getElementById("category").value,
         thumbnails: document.getElementById("thumbnails").value
     }
-    socket.emit("add", data);
+    socket.emit("client:addProduct", data);
 });
 
 
-document.getElementById("delete").addEventListener("click", function () {
-    const data = document.getElementById("pid").value;
-    socket.emit("delete", data);
-});
-
-socket.on("refresh", (data) => {
-    console.log(data);
+document.getElementById("deleteProduct").addEventListener("click", function () {
+    const data = document.getElementById("deleteId").value;
+    socket.emit("client:deleteProduct", data);
 });

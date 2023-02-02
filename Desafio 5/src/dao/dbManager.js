@@ -7,7 +7,7 @@ class ProductManager {
     // Trae todos los productos.
     async getProducts() {
         try {
-            const products = await productModel.find();
+            const products = await productModel.find().lean();
             return products;
         } catch (err) {
             throw err;
@@ -17,7 +17,7 @@ class ProductManager {
     // Trae el producto que que corresponde al id ingresado. Si no lo encuentra, devuelve error.
     async getProductById(id) {
         try {
-            const product = await productModel.findOne({ _id: id });
+            const product = await productModel.findOne({ _id: id }).lean();
             return product;
         }
         catch (err) {
@@ -88,7 +88,7 @@ class CartManager {
     // Trae el carrito que corresponde al id ingresado. Si no lo encuentra, devuelve error.
     async getCartById(id) {
         try {
-            const cart = await cartModel.findOne({ id: id });
+            const cart = await cartModel.findOne({ id: id }).lean();
             return cart;
         }
         catch (err) {

@@ -6,8 +6,9 @@ import handlebars from "express-handlebars";
 import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import viewsRouter from "./routes/views.router.js";
+import chatRouter from "./routes/chat.router.js";
 import { ProductManager } from "./dao/dbManager.js";
-
+const messages = [];
 
 const productManager = new ProductManager();
 
@@ -36,6 +37,7 @@ app.use(express.static("public"));
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
+app.use("/chat", chatRouter);
 
 
 mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/ecommerce?retryWrites=true&w=majority", (error) => {
@@ -50,26 +52,41 @@ mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/e
 io.on("connection", socket => {
     console.log("Cliente conectado");
 
-    socket.on("add", (product) => {
+    socket.on("client:addProduct", async (product) => {
         try {
-            productManager.addProduct(product);
-            const products = productManager.getProducts();
-            const data = render("realTimeProducts", {
-                products: products.map(product => product.toJSON())
-            });
-            sockets.emit("refresh", data);
-            // res.sendStatus(200);
+            await productManager.addProduct(product);
         } catch (err) {
-            // res.status(500).send(err);
+            throw (err);
         }
     });
 
-    socket.on("delete", (id) => {
+    socket.on("client:deleteProduct", async (id) => {
         try {
-            productManager.deleteProduct(id);
-            // res.sendStatus(200);
+            await productManager.deleteProduct(id);
         } catch (err) {
-            // res.status(500).send(err);
+            throw (err);
         }
-    }); 
+    });
+
+    socket.on("client:newmessage", async (data) => {
+        try {
+            messages.push(data);
+            socket.emit("server:newmessage", messages);
+        } catch (err) {
+            throw (err);
+        }
+    });
+
+    socket.on("client:newuser", async (data) => {
+        try {
+            socket.user = data.user;
+            socket.id = data.id;
+            socket.emit("server:newuser", {
+                user: socket.user,
+                id: socket.id
+            });
+        } catch (err) {
+            throw (err);
+        }
+    });
 });

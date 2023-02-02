@@ -9,9 +9,7 @@ const productManager = new ProductManager();
 viewsRouter.get("/", async (req, res) => {
     try {
         const products = await productManager.getProducts();
-        res.render("index", {
-            products: products.map(product => product.toJSON())
-        });
+        res.render("index", { products: products });
     } catch (err) {
         res.status(404).send(err);
     }

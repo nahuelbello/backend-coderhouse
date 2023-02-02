@@ -1,0 +1,18 @@
+<div>
+    <h1>CHAT</h1>
+
+    <div id="chat-box">
+        {{#each messages}}
+            <div class="message">
+                <div class="message-sender">{{user}}</div>
+                <p class="message-content">{{message}}</p>
+            </div>
+        {{/each}}
+    </div>
+
+    <textarea id="message-box"></textarea>
+
+</div>
+
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/chat.js"></script>
