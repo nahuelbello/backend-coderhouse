@@ -1,6 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(194, 182, 162);
+    margin: 0.75rem;
 }
 
 h1 {
@@ -10,10 +16,55 @@ h1 {
 .product {
     background-color: rgb(218, 215, 215);
     padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 4px;
+}
+
+.product > p {
+    margin: 0.25rem;
+    padding: 0.25rem;
+}
+
+h3 {
+    margin: 0 0.75rem;
+    margin-top: 1rem;
+}
+
+.products-form {
+    margin: 0 0.75rem;
+    margin-top: 0.5rem;
+}
+
+#chat-box {
+    background-color: rgb(164, 150, 129);
+    padding: 0.5rem;
     margin-top: 0.5rem;
     border-radius: 4px;
 }
 
-form > input, form > button {
+.message-card {
+    background-color: rgb(218, 215, 215);
+    margin: 0.25rem;
+    padding: 0.25rem;
     border-radius: 3px;
+}
+
+.message-sender {
+    font-weight: bold;
+    font-size: small;
+    margin-bottom: 10px;
+}
+
+#message-box {
+    margin-top: 10px;
+}
+
+.send-message-input {
+    width: 92%;
+    height: 25px;
+}
+
+.send-message-btn {
+    width: 7%;
+    height: 25px;
 }

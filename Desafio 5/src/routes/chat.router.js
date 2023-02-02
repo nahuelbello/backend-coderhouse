@@ -8,7 +8,7 @@ const chatRouter = Router();
 chatRouter.get("/", async (req, res) => {
     try {
         const messages = await messageModel.find().lean();
-        res.render("chat", messages);
+        res.render("chat", { messages: messages });
     } catch (err) {
         res.status(404).send(err);
     }

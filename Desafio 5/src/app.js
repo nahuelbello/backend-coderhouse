@@ -8,7 +8,8 @@ import productsRouter from "./routes/products.router.js";
 import viewsRouter from "./routes/views.router.js";
 import chatRouter from "./routes/chat.router.js";
 import { ProductManager } from "./dao/dbManager.js";
-const messages = [];
+import messageModel from "./dao/models/message.model.js";
+
 
 const productManager = new ProductManager();
 
@@ -55,6 +56,8 @@ io.on("connection", socket => {
     socket.on("client:addProduct", async (product) => {
         try {
             await productManager.addProduct(product);
+            const products = await productManager.getProducts();
+            io.sockets.emit("server:addProduct", products);
         } catch (err) {
             throw (err);
         }
@@ -63,25 +66,28 @@ io.on("connection", socket => {
     socket.on("client:deleteProduct", async (id) => {
         try {
             await productManager.deleteProduct(id);
+            const products = await productManager.getProducts();
+            io.sockets.emit("server:deleteProduct", products);
         } catch (err) {
             throw (err);
         }
     });
 
-    socket.on("client:newmessage", async (data) => {
+    socket.on("client:newMessage", async (data) => {
         try {
-            messages.push(data);
-            socket.emit("server:newmessage", messages);
+            await messageModel.create(data);
+            const messages = await messageModel.find().lean();
+            io.sockets.emit("server:newMessage", messages);
         } catch (err) {
             throw (err);
         }
     });
 
-    socket.on("client:newuser", async (data) => {
+    socket.on("client:newUser", async (data) => {
         try {
             socket.user = data.user;
             socket.id = data.id;
-            socket.emit("server:newuser", {
+            io.sockets.emit("server:newUser", {
                 user: socket.user,
                 id: socket.id
             });

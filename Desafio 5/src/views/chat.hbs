@@ -3,14 +3,18 @@
 
     <div id="chat-box">
         {{#each messages}}
-            <div class="message">
-                <div class="message-sender">{{user}}</div>
+            <div class="message-card">
+                <p class="message-sender">{{user}}</p>
                 <p class="message-content">{{message}}</p>
             </div>
         {{/each}}
     </div>
 
-    <textarea id="message-box"></textarea>
+    <div id="message-box">
+        <input type="text" id="message-input" class="send-message-input" placeholder="Mensaje"/>
+        <button id="send" class="btn send-message-btn">Enviar</button>
+    </div>
+
 
 </div>
 

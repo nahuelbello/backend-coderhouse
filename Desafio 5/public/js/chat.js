@@ -1,5 +1,6 @@
 const socket = io();
-const messageBox = document.getElementById("message-box");
+const chatBox = document.getElementById("chat-box");
+const messageInput = document.getElementById("message-input");
 let user;
 
 
@@ -14,38 +15,23 @@ Swal.fire({
             return "Para utilizar el chat es necesario un nombre de usuario";
         }
         user = input;
-        socket.emit("client:newuser", { user: user, id: socket.id });
+        socket.emit("client:newUser", { user: user, id: socket.id });
     }
 });
 
 
-messageBox.addEventListener("keyup", (event) => {
-    if ((event.key === "Enter") && (messageBox.value.trim().length > 0)) {
-        socket.emit("client:newmessage", {
+messageInput.addEventListener("keyup", (event) => {
+    if ((event.key === "Enter") && (messageInput.value.trim().length > 0)) {
+        socket.emit("client:newMessage", {
             user: user,
-            message: messageBox.value,
+            message: messageInput.value,
         });
-        messageBox.value = "";
+        messageInput.value = "";
     }
 });
 
 
-socket.on("server:newmessage", (data) => {
-    const messages = document.getElementById("chat-box");
-    let message = "";
-    data.forEach((e) => {
-        message += `
-            <div class="message">
-                <div class="message-sender">${e.user}</div>
-                <p class="message-content">${e.message}</p>
-            </div>
-        `;
-    });
-    messages.innerHTML = message;
-});
-
-
-socket.on("server:newuser", (data) => {
+socket.on("server:newUser", (data) => {
     if (data.id !== socket.id) {
         Swal.fire({
             text: `${data.user} se ha conectado`,
@@ -53,4 +39,18 @@ socket.on("server:newuser", (data) => {
             position: "top-end",    
         });
     }
-}); 
+});
+
+
+socket.on("server:newMessage", (data) => {
+    let messages = "";
+    data.forEach((e) => {
+        messages += `
+            <div class="message-card">
+                <p class="message-sender">${e.user}</p>
+                <p class="message-content">${e.message}</p>
+            </div>
+        `;
+    });
+    chatBox.innerHTML = messages;
+});
