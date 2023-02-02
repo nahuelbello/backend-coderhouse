@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
 
 const useCollection = "carts";
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     { products: Array },
     { versionKey: false }
 );
 
-const cartModel = mongoose.model(useCollection, userSchema);
+const cartModel = model(useCollection, userSchema);
 
 
 export default cartModel;

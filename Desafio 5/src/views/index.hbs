@@ -3,7 +3,7 @@
 
     {{#each products}}
         <div class="product">
-            <p><b>ID:</b> {{this.id}}</p>
+            <p><b>ID:</b> {{this._id}}</p>
             <p><b>Title:</b> {{this.title}}</p>
             <p><b>Description:</b> {{this.description}}</p>
             <p><b>Code:</b> {{this.code}}</p>
@@ -16,7 +16,7 @@
     {{/each}}
 
     <h3>AGREGAR UN PRODUCTO</h3>
-    <form action="/realtimeproducts" method="post">
+    <form action="/" method="post">
         <input type="text" placeholder="Title" id="title"/>
         <input type="text" placeholder="Description" id="description"/>
         <input type="text" placeholder="Code" id="code"/>
@@ -30,7 +30,7 @@
     </form>
     
     <h3>ELIMINAR UN PRODUCTO</h3>
-    <form action="/realtimeproducts" method="delete">
+    <form action="/" method="delete">
         <input type="text" placeholder="ID" id="pid"/>
 
         <button id="delete" type="button" class="btn del-btn">ELIMINAR</button>

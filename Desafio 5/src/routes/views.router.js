@@ -9,19 +9,8 @@ const productManager = new ProductManager();
 viewsRouter.get("/", async (req, res) => {
     try {
         const products = await productManager.getProducts();
-        res.render("home", {
-            products: products
-        });
-    } catch (err) {
-        res.status(404).send(err);
-    }
-});
-
-viewsRouter.get("/realtimeproducts", async (req, res) => {
-    try {
-        const products = await productManager.getProducts();
-        res.render("realTimeProducts", {
-            products: products
+        res.render("index", {
+            products: products.map(product => product.toJSON())
         });
     } catch (err) {
         res.status(404).send(err);

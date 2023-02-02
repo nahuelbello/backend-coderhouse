@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
 
 const useCollection = "products";
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         title: {
             type: String,
@@ -21,9 +21,9 @@ const userSchema = new mongoose.Schema(
             type: Number,
             require: true
         },
-        thumbnail: {
-            type: String,
-            require: true
+        status: {
+            type: Boolean,
+            default: true
         },
         stock: {
             type: Number,
@@ -33,15 +33,15 @@ const userSchema = new mongoose.Schema(
             type: String,
             require: true
         },
-        status: {
-            type: Boolean,
-            default: true
+        thumbnails: {
+            type: String,
+            require: true
         }
     },
     { versionKey: false }
 );
 
-const productModel = mongoose.model(useCollection, userSchema);
+const productModel = model(useCollection, userSchema);
 
 
 export default productModel;

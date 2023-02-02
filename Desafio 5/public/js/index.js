@@ -7,7 +7,7 @@ document.getElementById("add").addEventListener("click", function () {
         price: document.getElementById("price").value,
         code: document.getElementById("code").value,
         price: document.getElementById("price").value,
-        status: document.getElementById("status").value,
+        status: true,
         stock: document.getElementById("stock").value,
         category: document.getElementById("category").value,
         thumbnails: document.getElementById("thumbnails").value
@@ -19,4 +19,8 @@ document.getElementById("add").addEventListener("click", function () {
 document.getElementById("delete").addEventListener("click", function () {
     const data = document.getElementById("pid").value;
     socket.emit("delete", data);
+});
+
+socket.on("refresh", (data) => {
+    console.log(data);
 });

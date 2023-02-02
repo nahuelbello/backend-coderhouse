@@ -34,7 +34,7 @@ class ProductManager {
                 description: product.description,
                 code: product.code,
                 price: product.price,
-                thumbnail: product.thumbnail,
+                thumbnails: product.thumbnails,
                 stock: product.stock,
                 category: product.category,
                 status: product.status
@@ -58,7 +58,7 @@ class ProductManager {
                         title: product.title || prod.title,
                         description: product.description || prod.description,
                         price: product.price || prod.price,
-                        thumbnail: product.thumbnail || prod.thumbnail,
+                        thumbnails: product.thumbnails || prod.thumbnails,
                         stock: product.stock || prod.stock,
                         category: product.category || prod.category,
                         status: product.status || prod.status
