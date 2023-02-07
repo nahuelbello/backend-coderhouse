@@ -1,0 +1,22 @@
+<div>
+    <h1>CHAT</h1>
+
+    <div id="chat-box">
+        {{#each messages}}
+            <div class="message-card">
+                <p class="message-sender">{{user}}</p>
+                <p class="message-content">{{message}}</p>
+            </div>
+        {{/each}}
+    </div>
+
+    <div id="message-box">
+        <input type="text" id="message-input" class="send-message-input" placeholder="Mensaje"/>
+        <button id="send" class="btn send-message-btn">Enviar</button>
+    </div>
+
+
+</div>
+
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/chat.js"></script>

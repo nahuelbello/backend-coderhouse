@@ -1,0 +1,42 @@
+<div>
+    <h1>PRODUCTOS</h1>
+    <div id="products-box">
+        {{#each products}}
+            <div class="product">
+                <p><b>ID:</b> {{_id}}</p>
+                <p><b>Title:</b> {{title}}</p>
+                <p><b>Description:</b> {{description}}</p>
+                <p><b>Code:</b> {{code}}</p>
+                <p><b>Price:</b> $ {{price}}</p>
+                <p><b>Status:</b> {{status}}</p>
+                <p><b>Stock:</b> {{stock}}</p>
+                <p><b>Category:</b> {{category}}</p>
+                <p><b>Thumbnails:</b> {{thumbnails}}</p>
+            </div>
+        {{/each}}
+    </div>
+
+    <h3>AGREGAR UN PRODUCTO</h3>
+    <form action="/" method="post" class="products-form">
+        <input type="text" placeholder="Title" id="title"/>
+        <input type="text" placeholder="Description" id="description"/>
+        <input type="text" placeholder="Code" id="code"/>
+        <input type="text" placeholder="Price" id="price"/>
+        <input type="text" placeholder="Status" id="status"/>
+        <input type="text" placeholder="Stock" id="stock"/>
+        <input type="text" placeholder="Category" id="category"/>
+        <input type="text" placeholder="Thumbnails" id="thumbnails"/>
+
+        <button id="addProduct" type="button" class="btn add-btn">AGREGAR</button>
+    </form>
+    
+    <h3>ELIMINAR UN PRODUCTO</h3>
+    <form action="/" method="delete" class="products-form">
+        <input type="text" placeholder="ID" id="deleteId"/>
+
+        <button id="deleteProduct" type="button" class="btn del-btn">ELIMINAR</button>
+    </form>
+</div>
+
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script>
