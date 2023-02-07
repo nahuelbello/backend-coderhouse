@@ -7,21 +7,46 @@ const viewsRouter = Router();
 const productManager = new ProductManager();
 
 
-viewsRouter.get("/:limit/:page/:sort/:query", async (req, res) => {
+viewsRouter.get("/", async (req, res) => {
     try {
-        const params = {
-            limit: req.params.limit || 10,
-            page: req.params.page || 1,
-            sort: req.params.sort || "",
-            query: req.params.query || ""
-        }
-
-        const pipeline = await productsModel.aggregate([ 
-            { $match: { category: query } },
-            { $sort: { sort } }
-        ]);
- 
         const products = await productManager.getProducts();
+        res.render("index", { products: products });
+    } catch (err) {
+        res.status(404).send(err);
+    }
+});
+
+
+viewsRouter.get("/products", async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        const sort = parseInt(req.query.sort);
+        const query = req.query.query;
+        console.log(typeof(query))
+        const paginate = await productsModel.paginate({query}, {
+            sort: { price: sort },
+            limit: limit,
+            page: page
+        });
+
+        // El forEach parece que está al pedo, pero si no lo hago, handlebars me tira error y no me renderiza nada.
+        const products = [];
+        paginate.docs.forEach(e => {
+            const prod = {
+                _id: e._id,
+                title: e.title,
+                description: e.description,
+                code: e.code,
+                price: e.price,
+                status: e.status,
+                stock: e.stock,
+                category: e.category,
+                thumbnails: e.thumbnails
+            }
+            products.push(prod);
+        });
+        console.log(paginate);
 
         const devolver = {
             status: "success/error",
