@@ -11,6 +11,9 @@ import { ProductManager } from "./dao/dbManager.js";
 import messageModel from "./dao/models/message.model.js";
 
 
+dotenv.config();
+
+
 const productManager = new ProductManager();
 
 
@@ -41,7 +44,8 @@ app.use("/", viewsRouter);
 app.use("/chat", chatRouter);
 
 
-mongoose.connect("mongodb+srv://nahuelbe:nahuelbe@cluster0.9jlfml1.mongodb.net/ecommerce?retryWrites=true&w=majority", (error) => {
+mongoose.set('strictQuery', false);
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9jlfml1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, (error) => {
     if (error) {
         console.log("Error de conexion");
     } else {
