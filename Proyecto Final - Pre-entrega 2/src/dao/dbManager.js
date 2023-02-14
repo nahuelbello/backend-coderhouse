@@ -5,19 +5,23 @@ import cartsModel from "./models/carts.model.js";
 class ProductManager {
 
     // Trae todos los productos.
-    async getProducts() {
+    async getProducts(params) {
         try {
-            const products = await productsModel.find().lean();
+            const products = await productsModel.paginate(params.query ? { category: params.query } : {}, {
+                sort: { price: parseInt(params.sort) },
+                limit: parseInt(params.limit) || 10,
+                page: parseInt(params.page) || 1
+            });
             return products;
         } catch (err) {
             throw err;
         }
     }
 
-    // Trae el producto que que corresponde al id ingresado. Si no lo encuentra, devuelve error.
-    async getProductById(id) {
+    // Trae el producto que corresponde al id ingresado. Si no lo encuentra, devuelve error.
+    async getProductById(pid) {
         try {
-            const product = await productsModel.findOne({ _id: id }).lean();
+            const product = await productsModel.findOne({ _id: pid });
             return product;
         }
         catch (err) {
@@ -48,11 +52,11 @@ class ProductManager {
 
     // Actualiza el producto que corresponde al id ingresado. Si no lo encuentra, devuelve error.
     // Si se intenta modificar el code o el id, lo ignora.
-    async updateProduct(id, product) {
+    async updateProduct(pid, product) {
         try {
-            const prod = await this.getProductById(id);
+            const prod = await this.getProductById(pid);
             await productsModel.updateOne(
-                { _id: id },
+                { _id: pid },
                 {
                     $set: {
                         title: product.title || prod.title,
@@ -61,7 +65,7 @@ class ProductManager {
                         thumbnails: product.thumbnails || prod.thumbnails,
                         stock: product.stock || prod.stock,
                         category: product.category || prod.category,
-                        status: product.status || prod.status
+                        status: product.status
                     },
                 }
             );
@@ -72,9 +76,9 @@ class ProductManager {
     }
 
     // Elimina el producto que corresponde al id ingresado. Si no lo encuentra, devuelve error.
-    async deleteProduct(id) {
+    async deleteProduct(pid) {
         try {
-            await productsModel.deleteOne({ _id: id })
+            await productsModel.deleteOne({ _id: pid })
         }
         catch (err) {
             throw(err);
@@ -85,16 +89,27 @@ class ProductManager {
 
 class CartManager {
 
-    // Trae el carrito que corresponde al id ingresado. Si no lo encuentra, devuelve error.
-    async getCartById(id) {
+    // Trae todos los carritos.
+    async getCarts() {
         try {
-            const cart = await cartsModel.findOne({ id: id }).lean();
-            return cart;
+            const carts = await cartsModel.find();
+            return carts;
         }
         catch (err) {
             throw(err);
         }
     }
+
+    // Trae el carrito que corresponde al id ingresado. Si no lo encuentra, devuelve error.
+    async getCartById(cid) {
+        try {
+            const cart = await cartsModel.findOne({ _id: cid });
+            return cart;
+        }
+        catch (err) {
+            throw(err);
+        }
+    }    
 
     // Crea un carrito nuevo con un array de productos vacio.
     async addCart() {
@@ -106,21 +121,36 @@ class CartManager {
         }
     }
 
-    // Agrega un producto al carrito indicado en "idCart". Si no encuentra el carrito, devuelve error.
-    // Si el producto no existe, devuelve error. Si el producto ya fue ingresado, suma la cantidad nueva a la cantidad ya ingresada.
-    async addProduct(idCart, product) {
+    // Agrega un producto al carrito indicado en "idCart".
+    async addProduct(cid, pid, quantity) {
         try {
-            await cartsModel.updateOne(
-                { _id: idCart },
-                {
-                    $push: {
-                            "products": {
-                                product : product.id,
-                                quantity: product.quantity
-                            }
-                    }
-                }
-            );
+            const cart = await cartsModel.findById(cid);
+            const product =  cart.products.find(p => p.product.toString() === pid.toString())
+            product ? product.quantity = quantity : cart.products.push({ product:pid, quantity: quantity });
+            await cartsModel.updateOne({ _id: cid },cart)
+        } catch (err) {
+            throw(err);
+        }
+    }
+
+    // Elimina un producto agregado al carrito.
+    async deleteProduct(cid, pid) {
+        try {
+            const cart = await cartsModel.findOne({ _id: cid });
+            const product = cart.products.findIndex(p=> p.product.toString() === pid.toString());
+            
+            cart.products.splice(product, 1)
+            const productsUpdated = { products: cart.products }
+            await cartsModel.findByIdAndUpdate(cid, productsUpdated);
+        } catch (err) {
+            throw(err);
+        }
+    }
+
+    // Vacia carrito.
+    async deleteAllProducts(cid) {
+        try {
+            await cartsModel.findByIdAndUpdate(cid, { products: [] });
         } catch (err) {
             throw(err);
         }

@@ -6,18 +6,29 @@ const cartsRouter = Router();
 const cartManager = new CartManager();
 
 
-cartsRouter.get("/:cid", async (req, res) => {
+// Trae todos los carritos.
+cartsRouter.get("/", async (req, res) => {
     try {
-        const id = parseInt(req.params.cid);
-        const cart = await cartManager.getCartById(id);
-        if (cart) {
-            res.send(cart);
-        }
+        const carts = await cartManager.getCarts();
+        res.send(carts);
     } catch (err) {
-        res.status(404).send(err);
+        res.status(500).send(err);
     }
 });
 
+
+// Trae el carrito del ID ingresado junto a todos sus productos.
+cartsRouter.get("/:cid", async (req, res) => {
+    try {
+        const cart = await cartManager.getCartById(req.params.cid);
+        res.send(cart);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
+// Crea un carrito vacio.
 cartsRouter.post("/", async (req, res) => {
     try {
         cartManager.addCart();
@@ -27,9 +38,33 @@ cartsRouter.post("/", async (req, res) => {
     }
 });
 
-cartsRouter.post("/:cid", async (req, res) => {
+
+// Agrega un producto al carrito o modifica la cantidad de uno ya ingresado.
+cartsRouter.put("/:cid/products/:pid", async (req, res) => {
     try {
-        cartManager.addProduct(req.params.cid, req.body);
+        await cartManager.addProduct(req.params.cid, req.params.pid, req.body.quantity);
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
+// Elimina un producto del carrito del ID ingresado.
+cartsRouter.delete("/:cid/products/:pid", async (req, res) => {
+    try {
+        await cartManager.deleteProduct(req.params.cid, req.params.pid);
+        res.sendStatus(200);  
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
+// Vacia el carrito del ID ingresado.
+cartsRouter.delete("/:cid", async (req, res) => {
+    try {
+        await cartManager.deleteAllProducts(req.params.cid);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);

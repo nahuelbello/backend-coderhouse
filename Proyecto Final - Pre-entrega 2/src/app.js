@@ -2,11 +2,11 @@ import path from "path";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import { Server } from "socket.io";
+import { Server } from "socket.io"
 import handlebars from "express-handlebars";
 import chatRouter from "./routes/chat.router.js";
-import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
+import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import { ProductManager } from "./dao/dbManager.js";
 import messagesModel from "./dao/models/messages.model.js";
@@ -45,6 +45,7 @@ app.use("/", viewsRouter);
 app.use("/chat", chatRouter);
 
 
+mongoose.set('strictQuery', false);
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9jlfml1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`, (error) => {
     if (error) {
         console.log("Error de conexion");

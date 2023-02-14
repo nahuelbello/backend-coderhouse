@@ -1,50 +1,64 @@
 import { Router } from "express";
-import { ProductManager } from "../dao/fileSystem.js";
+import { ProductManager } from "../dao/dbManager.js";
 
 
 const productsRouter = Router();
 const productManager = new ProductManager();
 
 
+// Trae los productos de la categoria especificada (opcional), los ordena (opcional) y los pagina (opcional).
 productsRouter.get("/", async (req, res) => {
     try {
-        const products = await productManager.getProducts();
-        res.send(products);
+        const products = await productManager.getProducts(req.query || {});
+        res.send({ status: 'success', products: products });
+        await productManager.getProducts(req.query || {}).then(products => {
+            res.render("index", {
+                products: products.docs.map(products => products.toJSON())
+            })
+        });
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
+
+// Trae un producto por ID.
 productsRouter.get("/:pid", async (req, res) => {
     try {
         const product = await productManager.getProductById(req.params.pid);
         res.send(product);
     } catch (err) {
-        res.status(404).send(err);
+        res.status(500).send(err);
     }
 });
 
+
+// Crea un producto.
 productsRouter.post("/", async (req, res) => {
     try {
-        productManager.addProduct(req.body);
+        await productManager.addProduct(req.body);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
+
+// Modifica un producto.
 productsRouter.put("/:pid", async (req, res) => {
     try {
-        productManager.updateProduct(req.params.pid, req.body);
+        await productManager.updateProduct(req.params.pid, req.body);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
+
+// Elimina un producto.
 productsRouter.delete("/:pid", async (req, res) => {
     try {
-        productManager.deleteProduct(req.params.pid);
+        await productManager.deleteProduct(req.params.pid);
         res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
