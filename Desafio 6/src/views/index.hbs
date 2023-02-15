@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>PRODUCTOS</h1>
+    <div id="products-box">
+        {{#each products}}
+            <div class="product-card">
+                <div class="card-img-container">
+                    <img src="{{thumbnails}}" class="card-img">
+                </div>
+                <div class="card-info">
+                    <h3><b>{{title}}</b></h3>
+                    <p><b>$ {{price}}</b></p>
+                    <span class="buy-btn">AGREGAR AL CARRITO</span>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+
+    <h2>AGREGAR UN PRODUCTO</h2>
+    <form action="/" method="post" class="products-form">
+        <input type="text" placeholder="Title" id="title"/>
+        <input type="text" placeholder="Description" id="description"/>
+        <input type="text" placeholder="Code" id="code"/>
+        <input type="text" placeholder="Price" id="price"/>
+        <input type="text" placeholder="Status" id="status"/>
+        <input type="text" placeholder="Stock" id="stock"/>
+        <input type="text" placeholder="Category" id="category"/>
+        <input type="text" placeholder="Thumbnails" id="thumbnails"/>
+        <button id="addProduct" type="button" class="btn add-btn">AGREGAR</button>
+    </form>
+
+    <h2>ELIMINAR UN PRODUCTO</h2>
+    <form action="/" method="delete" class="products-form">
+        <input type="text" placeholder="ID" id="deleteId"/>
+        <button id="deleteProduct" type="button" class="btn del-btn">ELIMINAR</button>
+    </form>
+
+</div>
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script>
