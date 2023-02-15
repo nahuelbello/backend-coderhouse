@@ -62,6 +62,7 @@ io.on("connection", socket => {
         try {
             await productManager.addProduct(product);
             const products = await productManager.getProducts();
+            console.log(products)
             io.sockets.emit("server:addProduct", products);
         } catch (err) {
             throw (err);

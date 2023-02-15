@@ -7,7 +7,7 @@ class ProductManager {
     // Trae todos los productos.
     async getProducts(params) {
         try {
-            const products = await productsModel.paginate(params.query ? { category: params.query } : {}, {
+            const products = await productsModel.paginate(params.query === Object ? { category: params.query } : {}, {
                 sort: { price: parseInt(params.sort) },
                 limit: parseInt(params.limit) || 10,
                 page: parseInt(params.page) || 1

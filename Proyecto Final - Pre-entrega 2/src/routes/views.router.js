@@ -17,7 +17,7 @@ viewsRouter.get("/", async (req, res) => {
 
 
 // Trae los productos de la categoria especificada (opcional), los ordena (opcional) y los pagina (opcional).
-viewsRouter.get("/realtimeproducts", async (req, res) => {
+viewsRouter.get("/products", async (req, res) => {
     try {
         await productManager.getProducts(req.query || {}).then(products => {
             res.render("index", {

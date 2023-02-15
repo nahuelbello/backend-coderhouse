@@ -1,17 +1,16 @@
 const socket = io();
-const title = document.getElementById("title");
-const description = document.getElementById("description");
 const code = document.getElementById("code");
 const price = document.getElementById("price");
-const statusInput = document.getElementById("status");
+const title = document.getElementById("title");
 const stock = document.getElementById("stock");
 const category = document.getElementById("category");
-const thumbnails = document.getElementById("thumbnails");
 const deleteId = document.getElementById("deleteId");
-const productsBox = document.getElementById("products-box");
+const statusInput = document.getElementById("status");
+const thumbnails = document.getElementById("thumbnails");
 const addProduct = document.getElementById("addProduct");
+const description = document.getElementById("description");
+const productsBox = document.getElementById("products-box");
 const deleteProduct = document.getElementById("deleteProduct");
-
 
 
 const resetValues = () => {
@@ -27,20 +26,18 @@ const resetValues = () => {
 }
 
 
-const renderProducts = (data) => {
+const renderProductCards = (data) => {
     let products = "";
     data.forEach((e) => {
         products += `
-            <div class="product">
-                <p><b>ID:</b> ${e._id}</p>
-                <p><b>Title:</b> ${e.title}</p>
-                <p><b>Description:</b> ${e.description}</p>
-                <p><b>Code:</b> ${e.code}</p>
-                <p><b>Price:</b> $ ${e.price}</p>
-                <p><b>Status:</b> ${e.status}</p>
-                <p><b>Stock:</b> ${e.stock}</p>
-                <p><b>Category:</b> ${e.category}</p>
-                <p><b>Thumbnails:</b> ${e.thumbnails}</p>
+            <div class="product-card">
+                <div>
+                    <img src="${e.thumbnails}" class="card-img">
+                </div>
+                <div>
+                    <p><b>${e.title}</b></p>
+                    <p><b>$ ${e.price}</b></p>
+                </div>
             </div>
         `;
     });
@@ -72,10 +69,10 @@ deleteProduct.addEventListener("click", function () {
 
 
 socket.on("server:addProduct", (data) => {
-    renderProducts(data);
+    renderProductCards(data);
 });
 
 
 socket.on("server:deleteProduct", (data) => {
-    renderProducts(data);
+    renderProductCards(data);
 });
