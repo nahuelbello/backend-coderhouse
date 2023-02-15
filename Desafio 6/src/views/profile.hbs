@@ -1,3 +1,14 @@
-<div class="profile-container">
-    <button id="logout-btn">Logout</button>
+<div class="container">
+        <div id="profile">
+            <p><b>{{first_name}} {{last_name}}</b></p>
+            <p><b>{{email}}</b></p>
+            <p><b>Edad: </b>{{age}}</p>
+            <p><b>Admin: </b>{{admin}}</p>
+            <p><b>Rol: </b>{{rol}}</p>
+        </div>
+
+    <form action="/api/sessions/logout" method="GET">
+        <button type="submit" id="logout-btn">Logout</button>
+    </form>
+    
 </div>

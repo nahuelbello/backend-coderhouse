@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
 
 
-const registerCollection = "register";
+const usersCollection = "users";
 
-const registerSchema = new Schema(
+const usersSchema = new Schema(
     {
         first_name: { type: String, require: true },
         last_name: { type: String, require: true },
@@ -14,7 +14,7 @@ const registerSchema = new Schema(
     { versionKey: false }
 );
 
-const registerModel = model(registerCollection, registerSchema);
+const usersModel = model(usersCollection, usersSchema);
 
 
-export default registerModel;
+export default usersModel;

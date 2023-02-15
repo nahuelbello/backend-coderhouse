@@ -9,10 +9,8 @@ const productManager = new ProductManager();
 // Trae los productos de la categoria especificada (opcional), los ordena (opcional) y los pagina (opcional).
 productsRouter.get("/", async (req, res) => {
     try {
-        const products = await productManager.getProducts(req.query || {});
-        res.send({ status: 'success', products: products });
         await productManager.getProducts(req.query || {}).then(products => {
-            res.render("index", {
+            res.render("products", {
                 products: products.docs.map(products => products.toJSON())
             })
         });

@@ -13,8 +13,7 @@ import handlebars from "express-handlebars";
 import chatRouter from "./routes/chat.router.js";
 import viewsRouter from "./routes/views.router.js";
 import cartsRouter from "./routes/carts.router.js";
-import loginRouter from "./routes/login.router.js";
-import registerRouter from "./routes/register.router.js";
+import sessionsRouter from "./routes/sessions.router.js";
 import productsRouter from "./routes/products.router.js";
 
 // DAO
@@ -52,28 +51,27 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
+    secret: "codigo-s3cr3t0",
+    resave: true,
+    saveUninitialized: true,
     store: MongoStore.create({
         mongoUrl: DB_URL,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
-        ttl: 10000
+        ttl: 1000
     }),
-    secret: 'codigo-s3cr3t0',
-    resave: true,
-    saveUninitialized: true
 }));
 
 
 // Routes
 app.use("/", viewsRouter);
 app.use("/chat", chatRouter);
-app.use('/api/login', loginRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/products", productsRouter);
-app.use('/api/register', registerRouter);
+app.use('/api/sessions', sessionsRouter);
 
 
 // Database
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 mongoose.connect(DB_URL, (err) => {
     if (err) {
         console.log("Error de conexion");

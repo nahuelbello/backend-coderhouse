@@ -1,5 +1,7 @@
-<div class="login-container">
-    <input type="text" placeholder="E-Mail" id="email" />
-    <input type="text" placeholder="Contraseña" id="password" />
-    <button id="login-btn">Login</button>
+<div class="container">
+    <form action="/api/sessions/login" method="POST" class="login-form">
+        <input type="email" name="email" placeholder="E-Mail" id="email" autofocus/>
+        <input type="password" name="password" placeholder="Contraseña" id="password"/>
+        <button id="login-btn">Login</button>
+    </form>
 </div>

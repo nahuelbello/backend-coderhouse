@@ -1,8 +1,10 @@
-<div class="containerForm">
-    <input type="text" placeholder="Nombre" id="first_name-register"/>
-    <input type="text" placeholder="Apellido" id="last_name-register"/>
-    <input type="text" placeholder="E-Mail" id="email-register"/>
-    <input type="text" placeholder="Edad" id="age-register"/>
-    <input type="text" placeholder="Contraseña" id="password-register"/>
-    <button id="signup">Enviar</button>
+<div class="container">
+    <form action="/api/sessions/register" method="POST" class="register-form">
+        <input type="text" name="first_name" placeholder="Nombre" id="first_name-register" autofocus/>
+        <input type="text" name="last_name" placeholder="Apellido" id="last_name-register"/>
+        <input type="email" name="email" placeholder="E-Mail" id="email-register"/>
+        <input type="number" name="age" placeholder="Edad" id="age-register"/>
+        <input type="password" name="password" placeholder="Contraseña" id="password-register"/>
+        <button id="signup">Enviar</button>
+    </form>
 </div>
