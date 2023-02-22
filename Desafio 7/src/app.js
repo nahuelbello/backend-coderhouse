@@ -3,7 +3,8 @@ import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import { Server } from 'socket.io'
+import passport from 'passport';
+import { Server } from 'socket.io';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
@@ -17,6 +18,7 @@ import sessionsRouter from './routes/sessions.router.js';
 import productsRouter from './routes/products.router.js';
 
 // DAO
+import initializePassport from './passport/passport.config.js';
 import { ProductManager } from './dao/dbManager.js';
 import messagesModel from './dao/models/messages.model.js';
 const productManager = new ProductManager();
@@ -60,6 +62,9 @@ app.use(session({
         ttl: 1000
     }),
 }));
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // Routes

@@ -18,4 +18,4 @@ cartsSchema.pre('findOne', () => {
 });
 
 
-module.exports = model('carts', cartsSchema);
+export default model('carts', cartsSchema);
