@@ -49,8 +49,10 @@ sessionsRouter.get('/profile', isAuthenticated, (req, res, next) => {
 
 // Cierra la sesion.
 sessionsRouter.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
+    req.session.destroy(err => {
+        if (err) res.status(401).send(err);
+        res.redirect('/');
+    });
 });
 
 
